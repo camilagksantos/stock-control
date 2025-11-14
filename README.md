@@ -1,27 +1,72 @@
-# StockControl
+# 📦 Stock Control - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+Frontend application for a complete stock control system, built with Angular 15.
 
-## Development server
+## 🚀 Technologies
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Angular 15.2
+- TypeScript 4.9
+- RxJS 7.8
+- Bootstrap 5 (opcional)
+- Docker
 
-## Code scaffolding
+## 🐳 Running with Docker
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
+- Docker
+- Docker Compose
 
-## Build
+### Steps
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone the repository
+```bash
+git clone https://github.com/seu-usuario/stock-control.git
+cd stock-control
+```
 
-## Running unit tests
+2. Start the container
+```bash
+docker-compose up -d
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Access the container
+```bash
+docker exec -it stock-control-angular15 sh
+```
 
-## Running end-to-end tests
+4. Install dependencies and run
+```bash
+npm install
+ng serve --host 0.0.0.0
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+5. Access the application at `http://localhost:4200`
 
-## Further help
+## 📡 API Connection
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This application connects directly to the [Stock Control API](https://github.com/seu-usuario/stock-control-api) built with Spring Boot.
+
+## 🛠️ Development
+```bash
+# Generate component
+ng generate component components/component-name
+
+# Generate service
+ng generate service services/service-name
+
+# Build for production
+ng build --configuration production
+```
+
+## 📝 License
+
+This project is under MIT license.
+```
+
+---
+
+## 🔧 stock-control-api (Spring Boot)
+
+**Descrição curta (para o campo description do GitHub):**
+```
+REST API for stock control system built with Spring Boot 3 and Java 17
