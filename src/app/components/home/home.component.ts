@@ -65,8 +65,15 @@ export class HomeComponent {
       .pipe(take(1))
       .subscribe({
         next: (response) => {
+
+
+          console.log('Response completa:', response);
+          console.log('Token:', response.token);
+
+
           if (response.authenticated && response.user) {
-            this.cookieService.set('USER_INFO', JSON.stringify(response.user));
+            this.cookieService.set('AUTH_TOKEN', response.token!);
+
             this.messageService.add({
               severity: 'success',
               summary: 'Sucesso',

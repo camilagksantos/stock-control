@@ -21,4 +21,5 @@ export interface IAuthResponse {
     authenticated: boolean;
     message: string;
     user?: IUser;
+    token?: string;
 }
