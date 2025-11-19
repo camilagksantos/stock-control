@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/enviroment/environment';
-import { ILoginRequest, ISignUpRequest, IUser } from '../interface/user.interface';
+import { IAuthRequest, IAuthResponse, ISignUpRequest, IUser } from '../interface/user.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,21 +19,17 @@ export class UserService {
     constructor(
       private http: HttpClient
     ) { }
+    
+  getAllUsers(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.API_URL}/users`, this.httpOptions);
+  }
   
-  login(credentials: ILoginRequest): Observable<IUser> {
-    return this.http.post<IUser>(`${this.API_URL}/users/login`, credentials, this.httpOptions);
+  getUserById(userId: number): Observable<IUser> {
+    return this.http.get<IUser>(`${this.API_URL}/users/${userId}`, this.httpOptions);
   }
 
   signUp(userData: ISignUpRequest): Observable<IUser> {
     return this.http.post<IUser>(`${this.API_URL}/users`, userData, this.httpOptions);
-  }
-
-  getAllUsers(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${this.API_URL}/users`, this.httpOptions);
-  }
-
-  getUserById(userId: number): Observable<IUser> {
-    return this.http.get<IUser>(`${this.API_URL}/users/${userId}`, this.httpOptions);
   }
 
   updateUser(userId: number, userData: Partial<ISignUpRequest>): Observable<IUser> {
@@ -42,5 +38,13 @@ export class UserService {
 
   deleteUser(userId: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/users/${userId}`, this.httpOptions);
+  }
+
+  authenticate(credentials: IAuthRequest): Observable<IAuthResponse> {
+    return this.http.post<IAuthResponse>(
+      `${this.API_URL}/users/auth`,
+      credentials,
+      this.httpOptions
+    );
   }
 }

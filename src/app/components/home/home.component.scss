@@ -11,3 +11,15 @@
         background-position: top;
     }
 }
+
+::ng-deep {
+
+    p-dropdown,
+    .p-dropdown {
+        width: 100% !important;
+    }
+
+    .p-dropdown .p-dropdown-label {
+        text-align: left !important;
+    }
+}
