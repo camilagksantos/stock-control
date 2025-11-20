@@ -1,6 +1,5 @@
 .grid {
-    background-image: url("../../../assets/sean-pollock-PhYq704ffdA-unsplash.jpg");
-    background-size: cover;
+background-image: url('/assets/sean-pollock-PhYq704ffdA-unsplash.jpg');     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
@@ -21,5 +20,13 @@
 
     .p-dropdown .p-dropdown-label {
         text-align: left !important;
+    }
+}
+
+.p-toast {
+    backdrop-filter: blur(10px);
+
+    .p-toast-message {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 }

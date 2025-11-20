@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { take } from 'rxjs';
-import { IAuthRequest, ISignUpRequest } from 'src/app/interface/user.interface';
-import { UserService } from 'src/app/service/user.service';
+import { IAuthRequest, ISignUpRequest } from 'src/app/models/interfaces/user.interface';
+import { UserService } from 'src/app/modules/users/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  
+
   loginCard = true;
 
   roleOptions = [
@@ -21,7 +21,7 @@ export class HomeComponent {
     { label: 'Gerente', value: 'MANAGER' }
   ];
 
-  
+
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]]
@@ -33,7 +33,7 @@ export class HomeComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
     role: ['USER', Validators.required]
   });
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -65,12 +65,6 @@ export class HomeComponent {
       .pipe(take(1))
       .subscribe({
         next: (response) => {
-
-
-          console.log('Response completa:', response);
-          console.log('Token:', response.token);
-
-
           if (response.authenticated && response.user) {
             this.cookieService.set('AUTH_TOKEN', response.token!);
 

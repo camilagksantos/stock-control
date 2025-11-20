@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/enviroment/environment';
-import { IAuthRequest, IAuthResponse, ISignUpRequest, IUser } from '../interface/user.interface';
 import { Observable } from 'rxjs';
+import { IAuthRequest, IAuthResponse, ISignUpRequest, IUser } from 'src/app/models/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +10,20 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   private API_URL = environment.API_URL;
-    private httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-  
-    constructor(
-      private http: HttpClient
-    ) { }
-    
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
   getAllUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(`${this.API_URL}/users`, this.httpOptions);
   }
-  
+
   getUserById(userId: number): Observable<IUser> {
     return this.http.get<IUser>(`${this.API_URL}/users/${userId}`, this.httpOptions);
   }

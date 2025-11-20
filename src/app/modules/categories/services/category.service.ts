@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/enviroment/environment';
-import { ICategory } from '../interface/category.interface';
 import { Observable } from 'rxjs';
+import { ICategory } from 'src/app/models/interfaces/category.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +10,16 @@ import { Observable } from 'rxjs';
 export class CategoryService {
 
   private API_URL = environment.API_URL;
-    private httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-  
-    constructor(
-      private http: HttpClient
-    ) { }
-  
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
   getAllCategories(): Observable<ICategory[]> {
     return this.http.get<ICategory[]>(`${this.API_URL}/categories`, this.httpOptions);
   }
