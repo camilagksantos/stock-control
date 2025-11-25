@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from 'primeng/api';
 import { take } from 'rxjs';
@@ -38,7 +39,8 @@ export class HomeComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private cookieService: CookieService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) { }
 
   // ============================================
@@ -74,7 +76,10 @@ export class HomeComponent {
               detail: `Bem-vindo(a), ${response.user.name}!`,
               life: 3000
             });
+
             this.loginForm.reset();
+            this.router.navigate(['/dashboard']);
+            
           } else {
             this.messageService.add({
               severity: 'error',

@@ -6,7 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { DropdownModule } from 'primeng/dropdown';
-import { ReactiveFormsModule } from '@angular/forms';
+import { SidebarModule } from 'primeng/sidebar';
+import { ToolbarModule } from 'primeng/toolbar';
 
 const PRIMENG_MODULES = [
   CardModule,
@@ -14,19 +15,19 @@ const PRIMENG_MODULES = [
   ButtonModule,
   ToastModule,
   RippleModule,
-  DropdownModule
+  DropdownModule,
+  SidebarModule,
+  ToolbarModule
 ];
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     ...PRIMENG_MODULES
   ],
   exports: [
     CommonModule,
-    ReactiveFormsModule,
     ...PRIMENG_MODULES
   ]
 })
