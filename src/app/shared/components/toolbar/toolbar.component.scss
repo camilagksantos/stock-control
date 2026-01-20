@@ -1,0 +1,46 @@
+:host ::ng-deep {
+    .p-toolbar {
+        background-color: #0d0a4f; 
+        border: none;
+        border-top: 3px solid #4338ca;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .p-button {
+        background-color: #1e1b6b;
+        border-color: #1e1b6b;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: #2d2a8f;
+            border-color: #2d2a8f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+    .p-toolbar-group-center {
+        margin-left: 2rem;
+
+        .p-button {
+            margin-right: 0.5rem;
+        }
+    }
+
+    .p-toolbar-group-end {
+        .p-button {
+            background-color: #dc2626; // Vermelho
+            border-color: #dc2626;
+
+            &:hover {
+                background-color: #b91c1c; // Vermelho escuro
+                border-color: #b91c1c;
+            }
+        }
+    }
+}

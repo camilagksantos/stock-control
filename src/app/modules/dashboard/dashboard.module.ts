@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SharedModule } from 'src/app/shared/shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { CookieService } from 'ngx-cookie-service';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ChartModule } from 'primeng/chart';
 
 
 @NgModule({
@@ -15,13 +13,10 @@ import { CookieService } from 'ngx-cookie-service';
   imports: [
     DashboardRoutingModule,
     SharedModule,
-    FormsModule,
-    ReactiveFormsModule
+    ChartModule
   ],
   exports: [],
   providers: [
-    MessageService,
-    CookieService
   ]
 })
 export class DashboardModule { }

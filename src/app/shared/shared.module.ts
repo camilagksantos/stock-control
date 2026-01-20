@@ -8,6 +8,10 @@ import { RippleModule } from 'primeng/ripple';
 import { DropdownModule } from 'primeng/dropdown';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToolbarModule } from 'primeng/toolbar';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 
 const PRIMENG_MODULES = [
   CardModule,
@@ -21,14 +25,23 @@ const PRIMENG_MODULES = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ToolbarComponent
+  ],
   imports: [
     CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
     ...PRIMENG_MODULES
   ],
   exports: [
     CommonModule,
-    ...PRIMENG_MODULES
+    RouterModule,
+    ReactiveFormsModule, 
+    FormsModule,
+    ...PRIMENG_MODULES,
+    ToolbarComponent
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,22 @@
+<p-toolbar>
+    <div class="p-toolbar-group-start">
+        <p-button icon="pi pi-home" label="Dashboard" routerLink="/dashboard" routerLinkActive="exact_route">
+        </p-button>
+    </div>
+
+    <div class="p-toolbar-group-center">
+        <p-button label="Produtos" icon="pi pi-shopping-cart" routerLink="/products" routerLinkActive="exact_route">
+        </p-button>
+
+        <p-button label="Categorias" icon="pi pi-ticket" routerLink="/categories" routerLinkActive="exact_route">
+        </p-button>
+
+        <p-button label="Efetuar Vendas" icon="pi pi-credit-card" routerLink="/products" routerLinkActive="exact_route">
+        </p-button>
+    </div>
+
+    <div class="p-toolbar-group-end">
+        <p-button label="Sair" icon="pi pi-sign-out" (click)="handleLogout()">
+        </p-button>
+    </div>
+</p-toolbar>
