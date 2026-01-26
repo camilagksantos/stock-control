@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 // @ts-ignore
 import { ChartData, ChartOptions } from 'chart.js';
 import { MessageService } from 'primeng/api';
-import { catchError } from 'rxjs/operators';
-import { Observable, of, map } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { IProduct } from 'src/app/models/interfaces/product.interface';
 import { ProductService } from 'src/app/modules/products/service/product.service';
-import { DataTransferProductService } from 'src/app/modules/products/service/data-transfer-product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,17 +20,20 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private dataTransferService: DataTransferProductService,
     private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
     this.getProducts();
-    this.setProductsChartConfig([]);
   }
 
   getProducts(): void {
-    this.productService.getAllProducts().pipe(
+    this.productsList$ = this.productService.getAllProducts().pipe(
+      tap(products => {
+        if (products.length > 0) {
+          this.setProductsChartConfig(products);
+        }
+      }),
       catchError((error) => {
         this.messageService.add({
           severity: 'error',
@@ -41,15 +43,7 @@ export class DashboardComponent implements OnInit {
         });
         return of([]);
       })
-    ).subscribe(products => {
-      this.dataTransferService.setProductsData(products);
-
-      if (products.length > 0) {
-        this.setProductsChartConfig(products);
-      }
-    });
-
-    this.productsList$ = this.dataTransferService.getProductsData();
+    );
   }
 
   setProductsChartConfig(products: IProduct[]): void {
@@ -77,9 +71,20 @@ export class DashboardComponent implements OnInit {
       plugins: {
         legend: {
           labels: {
-            color: textColor
+            color: textColor,
+            font: {
+              size: 14,
+              weight: 500
+            }
           }
         },
+        tooltip: {
+          backgroundColor: '#0d0a4f',
+          titleColor: '#ffffff',
+          bodyColor: '#ffffff',
+          borderColor: '#4338ca',
+          borderWidth: 1
+        }
       },
       scales: {
         x: {
@@ -90,7 +95,7 @@ export class DashboardComponent implements OnInit {
             },
           },
           grid: {
-            color: surfaceBorder 
+            color: surfaceBorder
           }
         },
         y: {
@@ -98,7 +103,7 @@ export class DashboardComponent implements OnInit {
             color: textColorSecondary
           },
           grid: {
-            color: surfaceBorder 
+            color: surfaceBorder
           }
         }
       }

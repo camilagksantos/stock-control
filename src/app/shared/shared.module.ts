@@ -11,6 +11,15 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TableModule } from 'primeng/table';
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TooltipModule } from 'primeng/tooltip';
+import { ConfirmationService } from 'primeng/api';
 
 
 const PRIMENG_MODULES = [
@@ -21,7 +30,15 @@ const PRIMENG_MODULES = [
   RippleModule,
   DropdownModule,
   SidebarModule,
-  ToolbarModule
+  ToolbarModule,
+  TableModule,
+  InputMaskModule,
+  InputSwitchModule,
+  InputTextareaModule,
+  InputNumberModule,
+  DynamicDialogModule,
+  ConfirmDialogModule,
+  TooltipModule
 ];
 
 @NgModule({
@@ -42,6 +59,10 @@ const PRIMENG_MODULES = [
     FormsModule,
     ...PRIMENG_MODULES,
     ToolbarComponent
+  ],
+  providers: [
+    DialogService,
+    ConfirmationService
   ]
 })
 export class SharedModule { }

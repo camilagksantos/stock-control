@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { IProduct } from 'src/app/models/interfaces/product.interface';
 import { ProductService } from '../../service/product.service';
-import { DataTransferProductService } from '../../service/data-transfer-product.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -15,7 +14,6 @@ export class ProductComponent {
 
   constructor(
     private productService: ProductService,
-    private dataTransferService: DataTransferProductService,
     private messageService: MessageService
   ) { }
 
@@ -24,7 +22,7 @@ export class ProductComponent {
   }
 
   getProducts(): void {
-    this.productService.getAllProducts().pipe(
+    this.productsList$ = this.productService.getAllProducts().pipe(
       catchError((error) => {
         this.messageService.add({
           severity: 'error',
@@ -34,10 +32,6 @@ export class ProductComponent {
         });
         return of([]);
       })
-    ).subscribe(products => {
-      this.dataTransferService.setProductsData(products);
-    });
-
-    this.productsList$ = this.dataTransferService.getProductsData();
+    );
   }
 }

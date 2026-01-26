@@ -20,11 +20,13 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    loadChildren: () => import('./modules/products/product.module').then(m => m.ProductModule)
+    loadChildren: () => import('./modules/products/product.module').then(m => m.ProductModule),
+    canActivate: [authGuard]
   },
   {
     path: 'categories',
-    loadChildren: () => import('./modules/category/category.module').then(m => m.CategoryModule)
+    loadChildren: () => import('./modules/category/category.module').then(m => m.CategoryModule),
+    canActivate: [authGuard]
   }
 ];
 
