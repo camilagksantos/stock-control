@@ -20,6 +20,7 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
+import { TagModule } from 'primeng/tag';
 
 
 const PRIMENG_MODULES = [
@@ -38,7 +39,8 @@ const PRIMENG_MODULES = [
   InputNumberModule,
   DynamicDialogModule,
   ConfirmDialogModule,
-  TooltipModule
+  TooltipModule,
+  TagModule
 ];
 
 @NgModule({

@@ -11,6 +11,8 @@ import { MessageService } from 'primeng/api';
 })
 export class ProductComponent {
   public productsList$!: Observable<IProduct[]>;
+  public productSelected!: IProduct;
+
 
   constructor(
     private productService: ProductService,
@@ -33,5 +35,11 @@ export class ProductComponent {
         return of([]);
       })
     );
+  }
+
+  getStockSeverity(amount: number): string {
+    if (amount === 0) return 'danger';
+    if (amount < 10) return 'warning';
+    return 'success';
   }
 }
