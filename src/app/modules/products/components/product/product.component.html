@@ -76,14 +76,25 @@
                             <!-- Badge de categoria -->
                             <p-tag [value]="product?.category.name" severity="info"></p-tag>
                         </td>
+                        <!-- Botões de ação -->
                         <td>
-                            <!-- Botões de ação -->
                             <div class="flex gap-2 justify-content-center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning"
-                                    pTooltip="Editar produto" tooltipPosition="top">
+                                <button 
+                                    pButton 
+                                    pRipple 
+                                    icon="pi pi-pencil" 
+                                    class="p-button-rounded p-button-warning"
+                                    (click)="handleProductEdit(product)" 
+                                    pTooltip="Editar produto" 
+                                    tooltipPosition="top">
                                 </button>
-
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                                
+                                <button 
+                                    pButton 
+                                    pRipple 
+                                    icon="pi pi-trash" 
+                                    class="p-button-rounded p-button-danger"
+                                    (click)="handleDeleteProduct(product.productId, product.name)" 
                                     pTooltip="Excluir produto" tooltipPosition="top">
                                 </button>
                             </div>
@@ -111,5 +122,6 @@
                 </ng-template>
             </p-table>
         </p-card>
+        <p-confirmDialog></p-confirmDialog>
     </div>
 </div>
