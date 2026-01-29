@@ -1,1 +1,95 @@
-<p>category works!</p>
+<app-toolbar></app-toolbar>
+
+<div class="grid">
+    <div class="col-12">
+        <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Categorias">
+
+            <!-- Barra de busca global -->
+            <ng-template pTemplate="header">
+                <div class="flex justify-content-between align-items-center">
+                    <h3 class="m-0">Lista de Categorias</h3>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text"
+                            (input)="categoriesTable.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Buscar categorias..." />
+                    </span>
+                </div>
+            </ng-template>
+
+            <!-- Tabela -->
+            <p-table #categoriesTable [value]="(categoriesList$ | async) || []" [rows]="10" [paginator]="true"
+                [responsive]="true" [globalFilterFields]="['name']" [tableStyle]="{'min-width': '50rem'}"
+                [(selection)]="categorySelected" [rowHover]="true" [showCurrentPageReport]="true" dataKey="categoryId"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords}">
+
+                <!-- Cabeçalho da tabela -->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th scope="col" pSortableColumn="categoryId" style="width: 15%">
+                            ID
+                            <p-sortIcon field="categoryId"></p-sortIcon>
+                            <p-columnFilter type="numeric" field="categoryId" display="menu"></p-columnFilter>
+                        </th>
+
+                        <th scope="col" pSortableColumn="name">
+                            Nome
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
+                        </th>
+
+                        <th scope="col" style="width: 15%">
+                            <p-button styleClass="p-button-success" icon="pi pi-plus" label="Adicionar"
+                                pTooltip="Adicionar categoria" tooltipPosition="top">
+                            </p-button>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <!-- Corpo da tabela -->
+                <ng-template pTemplate="body" let-category>
+                    <tr>
+                        <td>{{ category.categoryId }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>
+                            <!-- Botões de ação -->
+                            <div class="flex gap-2 justify-content-center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning"
+                                    (click)="handleCategoryEdit(category)" pTooltip="Editar categoria"
+                                    tooltipPosition="top">
+                                </button>
+
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                                    (click)="handleDeleteCategory(category.categoryId, category.name)"
+                                    pTooltip="Excluir categoria" tooltipPosition="top">
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <!-- Mensagem quando não há dados -->
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="3" class="text-center p-5">
+                            <i class="pi pi-inbox text-6xl text-400 mb-3"></i>
+                            <p class="text-600 text-xl">Nenhuma categoria encontrada.</p>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <!-- Estado de carregamento -->
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="3" class="text-center p-5">
+                            <i class="pi pi-spin pi-spinner text-4xl text-primary"></i>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+
+        <!-- Dialog de confirmação -->
+        <p-confirmDialog></p-confirmDialog>
+    </div>
+</div>
