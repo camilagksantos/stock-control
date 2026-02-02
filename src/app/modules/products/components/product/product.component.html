@@ -18,9 +18,17 @@
             </ng-template>
 
             <!-- Tabela -->
-            <p-table #productsTable [value]="(productsList$ | async) || []" [rows]="10" [paginator]="true"
-                [responsive]="true" [globalFilterFields]="['name', 'amount']" [tableStyle]="{'min-width': '75rem'}"
-                [(selection)]="productSelected" [rowHover]="true" [showCurrentPageReport]="true" dataKey="productId"
+            <p-table 
+                #productsTable 
+                [value]="(productsList$ | async) || []" 
+                [rows]="10" 
+                [paginator]="true"
+                [globalFilterFields]="['name', 'amount']" 
+                [tableStyle]="{'min-width': '75rem'}"
+                [(selection)]="productSelected" 
+                [rowHover]="true" 
+                [showCurrentPageReport]="true" 
+                dataKey="productId"
                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords}">
 
                 <!-- Cabeçalho da tabela -->

@@ -18,9 +18,17 @@
             </ng-template>
 
             <!-- Tabela -->
-            <p-table #categoriesTable [value]="(categoriesList$ | async) || []" [rows]="10" [paginator]="true"
-                [responsive]="true" [globalFilterFields]="['name']" [tableStyle]="{'min-width': '50rem'}"
-                [(selection)]="categorySelected" [rowHover]="true" [showCurrentPageReport]="true" dataKey="categoryId"
+            <p-table 
+                #categoriesTable 
+                [value]="(categoriesList$ | async) || []" 
+                [rows]="10" 
+                [paginator]="true"
+                [globalFilterFields]="['name']" 
+                [tableStyle]="{'min-width': '50rem'}"
+                [(selection)]="categorySelected" 
+                [rowHover]="true" 
+                [showCurrentPageReport]="true" 
+                dataKey="categoryId"
                 currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords}">
 
                 <!-- Cabeçalho da tabela -->
