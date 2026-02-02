@@ -4,6 +4,8 @@ import { catchError } from 'rxjs/operators';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ICategory } from 'src/app/models/interfaces/category.interface';
 import { CategoryService } from '../../service/category.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CategoryFormComponent } from '../category-form/category-form.component';
 
 @Component({
   selector: 'app-category',
@@ -18,7 +20,8 @@ export class CategoryComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private dialogService: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -40,14 +43,7 @@ export class CategoryComponent implements OnInit {
   }
 
   handleCategoryEdit(category: ICategory): void {
-    console.log('Editar categoria:', category);
-    // TODO: Abrir modal de edição
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Em desenvolvimento',
-      detail: `Edição da categoria ${category.name} será implementada em breve`,
-      life: 3000
-    });
+    this.openCategoryFormEdit(category);
   }
 
   handleDeleteCategory(categoryId: number, categoryName: string): void {
@@ -88,6 +84,39 @@ export class CategoryComponent implements OnInit {
             this.getCategories();
           }
         });
+      }
+    });
+  }
+
+  openCategoryFormCreate(): void {
+    const ref = this.dialogService.open(CategoryFormComponent, {
+      header: 'Nova Categoria',
+      width: '50%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000
+    });
+
+    ref.onClose.subscribe((result) => {
+      if (result) {
+        this.getCategories();
+      }
+    });
+  }
+
+  openCategoryFormEdit(category: ICategory): void {
+    const ref = this.dialogService.open(CategoryFormComponent, {
+      header: 'Editar Categoria',
+      width: '50%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      data: {
+        category: category
+      }
+    });
+
+    ref.onClose.subscribe((result) => {
+      if (result) {
+        this.getCategories();
       }
     });
   }

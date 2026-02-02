@@ -52,8 +52,13 @@
                         </th>
 
                         <th scope="col">
-                            <p-button styleClass="p-button-success" icon="pi pi-plus" label="Adicionar"
-                                pTooltip="Adicionar produto" tooltipPosition="top">
+                            <p-button 
+                                styleClass="p-button-success" 
+                                icon="pi pi-plus" 
+                                label="Adicionar"
+                                (click)="openProductFormCreate()"
+                                pTooltip="Adicionar produto" 
+                                tooltipPosition="top">
                             </p-button>
                         </th>
                     </tr>

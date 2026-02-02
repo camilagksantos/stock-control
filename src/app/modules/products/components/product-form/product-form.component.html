@@ -1,0 +1,69 @@
+<div>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="card flex flex-column md:flex-column gap-3">
+
+            <div class="flex flex-column gap-2">
+                <label for="name">Nome <span class="text-red-500">*</span></label>
+                <input id="name" pInputText placeholder="Nome do produto" formControlName="name">
+                <small *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="p-error">
+                    <span *ngIf="productForm.get('name')?.errors?.['required']">Nome é obrigatório</span>
+                    <span *ngIf="productForm.get('name')?.errors?.['minlength']">Nome deve ter no mínimo 3
+                        caracteres</span>
+                </small>
+            </div>
+
+            <div class="flex flex-column gap-2">
+                <label for="category">Categoria <span class="text-red-500">*</span></label>
+                <p-dropdown id="category" styleClass="w-full" [options]="categoriesList" optionLabel="name"
+                    optionValue="categoryId" placeholder="Selecione uma categoria" formControlName="categoryId">
+                </p-dropdown>
+                <small *ngIf="productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched"
+                    class="p-error">
+                    Categoria é obrigatória
+                </small>
+            </div>
+
+            <div class="flex flex-column gap-2">
+                <label for="price">Preço <span class="text-red-500">*</span></label>
+                <p-inputNumber id="price" placeholder="R$ 0,00" mode="currency" currency="BRL" locale="pt-BR"
+                    formControlName="price">
+                </p-inputNumber>
+                <small *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="p-error">
+                    <span *ngIf="productForm.get('price')?.errors?.['required']">Preço é obrigatório</span>
+                    <span *ngIf="productForm.get('price')?.errors?.['min']">Preço deve ser maior que zero</span>
+                </small>
+            </div>
+
+            <div class="flex flex-column gap-2">
+                <label for="description">Descrição <span class="text-red-500">*</span></label>
+                <textarea id="description" pInputTextarea placeholder="Descrição do produto" rows="3"
+                    formControlName="description">
+                </textarea>
+                <small *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+                    class="p-error">
+                    Descrição é obrigatória
+                </small>
+            </div>
+
+            <div class="flex flex-column gap-2">
+                <label for="amount">Quantidade <span class="text-red-500">*</span></label>
+                <p-inputNumber id="amount" placeholder="0" [showButtons]="true" [min]="0" formControlName="amount">
+                </p-inputNumber>
+                <small *ngIf="productForm.get('amount')?.invalid && productForm.get('amount')?.touched" class="p-error">
+                    <span *ngIf="productForm.get('amount')?.errors?.['required']">Quantidade é obrigatória</span>
+                    <span *ngIf="productForm.get('amount')?.errors?.['min']">Quantidade não pode ser negativa</span>
+                </small>
+            </div>
+
+            <div class="flex flex-row gap-2 justify-content-center align-items-center mt-3">
+                <p-button type="button" label="Cancelar" severity="secondary" [disabled]="isSubmitting"
+                    (click)="onCancel()">
+                </p-button>
+
+                <p-button [disabled]="!productForm.valid || isSubmitting" [loading]="isSubmitting" type="submit"
+                    label="Concluir">
+                </p-button>
+            </div>
+        </div>
+    </form>
+</div>

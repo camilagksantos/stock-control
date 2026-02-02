@@ -1,0 +1,26 @@
+<div>
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+        <div class="card flex flex-column gap-3">
+
+            <div class="flex flex-column gap-2">
+                <label for="name">Nome <span class="text-red-500">*</span></label>
+                <input id="name" pInputText placeholder="Nome da categoria" formControlName="name">
+                <small *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched" class="p-error">
+                    <span *ngIf="categoryForm.get('name')?.errors?.['required']">Nome é obrigatório</span>
+                    <span *ngIf="categoryForm.get('name')?.errors?.['minlength']">Nome deve ter no mínimo 3
+                        caracteres</span>
+                </small>
+            </div>
+
+            <div class="flex flex-row gap-2 justify-content-center align-items-center mt-3">
+                <p-button type="button" label="Cancelar" severity="secondary" [disabled]="isSubmitting"
+                    (click)="onCancel()">
+                </p-button>
+
+                <p-button [disabled]="!categoryForm.valid || isSubmitting" [loading]="isSubmitting" type="submit"
+                    label="Concluir">
+                </p-button>
+            </div>
+        </div>
+    </form>
+</div>

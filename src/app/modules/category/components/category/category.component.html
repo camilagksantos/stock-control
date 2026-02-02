@@ -39,8 +39,13 @@
                         </th>
 
                         <th scope="col" style="width: 15%">
-                            <p-button styleClass="p-button-success" icon="pi pi-plus" label="Adicionar"
-                                pTooltip="Adicionar categoria" tooltipPosition="top">
+                            <p-button 
+                                styleClass="p-button-success" 
+                                icon="pi pi-plus" 
+                                label="Adicionar"
+                                (click)="openCategoryFormCreate()"
+                                pTooltip="Adicionar categoria" 
+                                tooltipPosition="top">
                             </p-button>
                         </th>
                     </tr>
