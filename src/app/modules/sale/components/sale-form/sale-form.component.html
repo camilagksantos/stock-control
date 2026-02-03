@@ -1,0 +1,110 @@
+<div>
+    <form [formGroup]="saleForm" (ngSubmit)="onSubmit()">
+        <div class="card flex flex-column gap-3">
+
+            <!-- Nome do Cliente -->
+            <div class="flex flex-column gap-2">
+                <label for="customerName">Nome do Cliente <span class="text-red-500">*</span></label>
+                <input id="customerName" pInputText placeholder="Nome do cliente" formControlName="customerName">
+                <small *ngIf="saleForm.get('customerName')?.invalid && saleForm.get('customerName')?.touched"
+                    class="p-error">
+                    <span *ngIf="saleForm.get('customerName')?.errors?.['required']">Nome é obrigatório</span>
+                    <span *ngIf="saleForm.get('customerName')?.errors?.['minlength']">Nome deve ter no mínimo 3
+                        caracteres</span>
+                </small>
+            </div>
+
+            <!-- Divisor -->
+            <p-divider></p-divider>
+
+            <!-- Adicionar Produtos -->
+            <h4>Adicionar Produtos</h4>
+
+            <div [formGroup]="productForm" class="grid">
+                <div class="col-12 md:col-8">
+                    <div class="flex flex-column gap-2">
+                        <label for="product">Produto <span class="text-red-500">*</span></label>
+                        <p-dropdown id="product" [options]="availableProducts" formControlName="productId"
+                            optionLabel="name" optionValue="productId" placeholder="Selecione um produto"
+                            [filter]="true" filterBy="name" [showClear]="true" styleClass="w-full">
+                            <ng-template let-product pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>
+                                        <div>{{ product.name }}</div>
+                                        <small class="text-500">Estoque: {{ product.amount }} | Preço: {{ product.price
+                                            | currency: 'BRL' }}</small>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-3">
+                    <div class="flex flex-column gap-2">
+                        <label for="quantity">Quantidade <span class="text-red-500">*</span></label>
+                        <p-inputNumber id="quantity" formControlName="quantity" [showButtons]="true" [min]="1"
+                            placeholder="Qtd">
+                        </p-inputNumber>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-1 flex align-items-end">
+                    <p-button type="button" icon="pi pi-plus" (click)="addProduct()" [disabled]="productForm.invalid"
+                        styleClass="p-button-success w-full" pTooltip="Adicionar produto" tooltipPosition="top">
+                    </p-button>
+                </div>
+            </div>
+
+            <!-- Lista de Produtos Adicionados -->
+            <div *ngIf="selectedItems.length > 0">
+                <p-divider></p-divider>
+                <h4>Itens da Venda</h4>
+
+                <div class="flex flex-column gap-2">
+                    <div *ngFor="let item of selectedItems; let i = index"
+                        class="flex justify-content-between align-items-center p-3 border-round surface-border border-1">
+                        <div class="flex flex-column">
+                            <span class="font-semibold">{{ getProductById(item.productId)?.name }}</span>
+                            <small class="text-500">
+                                {{ item.quantity }} × {{ getProductById(item.productId)?.price | currency: 'BRL' }}
+                            </small>
+                        </div>
+                        <div class="flex align-items-center gap-3">
+                            <span class="font-bold text-primary">
+                                {{ calculateItemSubtotal(item) | currency: 'BRL' }}
+                            </span>
+                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                class="p-button-rounded p-button-danger p-button-text" (click)="removeItem(i)"
+                                pTooltip="Remover" tooltipPosition="top">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total -->
+                <div class="flex justify-content-end mt-3">
+                    <div class="flex flex-column gap-2 text-right">
+                        <span class="text-xl font-bold">Total: {{ calculateTotal() | currency: 'BRL' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="selectedItems.length === 0" class="text-center p-4 surface-100 border-round">
+                <i class="pi pi-shopping-cart text-4xl text-400 mb-2"></i>
+                <p class="text-500">Nenhum produto adicionado</p>
+            </div>
+
+            <!-- Botões -->
+            <div class="flex flex-row gap-2 justify-content-end mt-3">
+                <p-button type="button" label="Cancelar" severity="secondary" [disabled]="isSubmitting"
+                    (click)="onCancel()">
+                </p-button>
+
+                <p-button [disabled]="!saleForm.valid || selectedItems.length === 0 || isSubmitting"
+                    [loading]="isSubmitting" type="submit" label="Concluir Venda">
+                </p-button>
+            </div>
+        </div>
+    </form>
+</div>

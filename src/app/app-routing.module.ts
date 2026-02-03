@@ -27,6 +27,11 @@ const routes: Routes = [
     path: 'categories',
     loadChildren: () => import('./modules/category/category.module').then(m => m.CategoryModule),
     canActivate: [authGuard]
+  },
+  {
+    path: 'sales',
+    loadChildren: () => import('./modules/sale/sale.module').then(m => m.SaleModule),
+    canActivate: [authGuard]
   }
 ];
 

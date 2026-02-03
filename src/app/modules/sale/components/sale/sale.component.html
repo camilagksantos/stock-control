@@ -1,0 +1,106 @@
+<app-toolbar></app-toolbar>
+
+<div class="grid">
+    <div class="col-12">
+        <p-card styleClass="shadow-3 m-5 text-indigo-800" header="Vendas">
+
+            <!-- Barra de busca global -->
+            <ng-template pTemplate="header">
+                <div class="flex justify-content-between align-items-center">
+                    <h3 class="m-0">Lista de Vendas</h3>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text"
+                            (input)="salesTable.filterGlobal($any($event.target).value, 'contains')"
+                            placeholder="Buscar vendas..." />
+                    </span>
+                </div>
+            </ng-template>
+
+            <!-- Tabela -->
+            <p-table #salesTable [value]="(salesList$ | async) || []" [rows]="10" [paginator]="true"
+                [globalFilterFields]="['customerName', 'saleId']" [tableStyle]="{'min-width': '75rem'}"
+                [(selection)]="saleSelected" [rowHover]="true" [showCurrentPageReport]="true" dataKey="saleId"
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords}">
+
+                <!-- Cabeçalho da tabela -->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th scope="col" pSortableColumn="saleId" style="width: 10%">
+                            ID
+                            <p-sortIcon field="saleId"></p-sortIcon>
+                            <p-columnFilter type="numeric" field="saleId" display="menu"></p-columnFilter>
+                        </th>
+
+                        <th scope="col" pSortableColumn="customerName">
+                            Cliente
+                            <p-sortIcon field="customerName"></p-sortIcon>
+                            <p-columnFilter type="text" field="customerName" display="menu"></p-columnFilter>
+                        </th>
+
+                        <th scope="col" pSortableColumn="saleDate">
+                            Data
+                            <p-sortIcon field="saleDate"></p-sortIcon>
+                        </th>
+
+                        <th scope="col" pSortableColumn="totalAmount">
+                            Total
+                            <p-sortIcon field="totalAmount"></p-sortIcon>
+                        </th>
+
+                        <th scope="col">Itens</th>
+
+                        <th scope="col">
+                            <p-button styleClass="p-button-success" icon="pi pi-plus" label="Nova Venda"
+                                (click)="openSaleFormCreate()" pTooltip="Criar nova venda" tooltipPosition="top">
+                            </p-button>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <!-- Corpo da tabela -->
+                <ng-template pTemplate="body" let-sale>
+                    <tr>
+                        <td>{{ sale.saleId }}</td>
+                        <td>{{ sale.customerName }}</td>
+                        <td>{{ sale.saleDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+                        <td>{{ sale.totalAmount | currency: 'BRL' }}</td>
+                        <td>
+                            <p-tag [value]="sale.items.length + ' item(s)'" severity="info"></p-tag>
+                        </td>
+                        <td>
+                            <div class="flex gap-2 justify-content-center">
+                                <button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-danger"
+                                    (click)="handleCancelSale(sale.saleId, sale.customerName)" pTooltip="Cancelar venda"
+                                    tooltipPosition="top">
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <!-- Mensagem quando não há dados -->
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="6" class="text-center p-5">
+                            <i class="pi pi-inbox text-6xl text-400 mb-3"></i>
+                            <p class="text-600 text-xl">Nenhuma venda encontrada.</p>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                <!-- Estado de carregamento -->
+                <ng-template pTemplate="loadingbody">
+                    <tr>
+                        <td colspan="6" class="text-center p-5">
+                            <i class="pi pi-spin pi-spinner text-4xl text-primary"></i>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+
+        <!-- Dialog de confirmação -->
+        <p-confirmDialog></p-confirmDialog>
+    </div>
+</div>

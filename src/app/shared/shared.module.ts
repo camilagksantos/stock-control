@@ -21,6 +21,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
+import { DividerModule } from 'primeng/divider';
 
 
 const PRIMENG_MODULES = [
@@ -40,7 +41,8 @@ const PRIMENG_MODULES = [
   DynamicDialogModule,
   ConfirmDialogModule,
   TooltipModule,
-  TagModule
+  TagModule,
+  DividerModule
 ];
 
 @NgModule({
